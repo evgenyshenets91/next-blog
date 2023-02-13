@@ -1,12 +1,10 @@
-import { Inter } from '@next/font/google';
+import { Fragment } from 'react';
+import Personality from '@/components/homepage/Personality';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <>
-      <title>Create Next App</title>
-      <main>
-        <div>new app</div>
-      </main>
-    </>
+    <Fragment>
+      <Personality />
+    </Fragment>
   );
 }
