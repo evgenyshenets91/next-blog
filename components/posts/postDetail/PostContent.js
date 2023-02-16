@@ -3,6 +3,8 @@ import ReactMarkdown from 'react-markdown';
 import PostHeader from '@/components/posts/postDetail/PostHeader';
 import classes from './PostContent.module.css';
 import Image from 'next/image';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 export default function PostContent(props) {
   const { post } = props;
@@ -20,6 +22,21 @@ export default function PostContent(props) {
           />
         </div>
       );
+    },
+    code: props => {
+      const { className, node } = props;
+
+      return node.children.map(el => {
+        return (
+          <SyntaxHighlighter
+            language={className.replace('language-', '')}
+            style={atomDark}
+            key={el.value}
+          >
+            {el.value}
+          </SyntaxHighlighter>
+        );
+      });
     },
   };
 
