@@ -6,10 +6,10 @@ export default function ContactForm() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
 
-  const sendMessageHandler = event => {
+  const sendMessageHandler = async event => {
     event.preventDefault();
 
-    fetch('/api/contact', {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       body: JSON.stringify({
         email,
@@ -18,6 +18,14 @@ export default function ContactForm() {
       }),
       headers: { 'Content-Type': 'application/json' },
     });
+
+    const data = await response.json();
+
+    alert(data?.message);
+
+    setMessage('');
+    setName('');
+    setEmail('');
   };
 
   return (
