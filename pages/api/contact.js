@@ -26,8 +26,6 @@ export default async function handler(req, res) {
 
     const connectionString = `mongodb+srv://${process.env.NEXT_PUBLIC_mongodb_username}:${process.env.NEXT_PUBLIC_mongodb_password}@${process.env.NEXT_PUBLIC_mongodb_clustername}.r5s0bwx.mongodb.net/${process.env.NEXT_PUBLIC_mongodb_database}?retryWrites=true&w=majority`;
 
-    const client = await MongoClient.connect(connectionString);
-
     // try {
     //   // return res.status(201).json({ message: connectionString });
     //   await MongoClient.connect(connectionString);
@@ -37,6 +35,8 @@ export default async function handler(req, res) {
     // }
 
     try {
+      const client = await MongoClient.connect(connectionString);
+
       const result = await client
         .db()
         .collection('messages')
@@ -44,12 +44,12 @@ export default async function handler(req, res) {
 
       newMessage.id = result.insertedId;
     } catch (e) {
-      await client.close();
+      // await client.close();
       res.status(500).json({ message: 'Storing message Failed' });
       return;
     }
-    await client.close();
-
+    // await client.close();
+    //
     res.status(201).json({ message: 'Success' });
   }
 }
