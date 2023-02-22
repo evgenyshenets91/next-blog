@@ -28,8 +28,6 @@ export default function ContactForm() {
     setEmail('');
   };
 
-  const connectionString = `mongodb+srv://${process.env.NEXT_PUBLIC_mongodb_username}:${process.env.NEXT_PUBLIC_mongodb_password}@${process.env.NEXT_PUBLIC_mongodb_clustername}.r5s0bwx.mongodb.net/${process.env.NEXT_PUBLIC_mongodb_database}?retryWrites=true&w=majority`;
-
   return (
     <section className={classes.contact}>
       <h1>How can I help you?</h1>
