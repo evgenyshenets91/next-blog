@@ -28,12 +28,11 @@ export default function ContactForm() {
     setEmail('');
   };
 
-  const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.r5s0bwx.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`;
+  const connectionString = `mongodb+srv://${process.env.NEXT_PUBLIC_mongodb_username}:${process.env.NEXT_PUBLIC_mongodb_password}@${process.env.NEXT_PUBLIC_mongodb_clustername}.r5s0bwx.mongodb.net/${process.env.NEXT_PUBLIC_mongodb_database}?retryWrites=true&w=majority`;
 
   return (
     <section className={classes.contact}>
       <h1>How can I help you?</h1>
-      <p>dbName:{process.env.NEXT_PUBLIC_mongodb_username}</p>
       <form className={classes.form} onSubmit={sendMessageHandler}>
         <div className={classes.controls}>
           <div className={classes.control}>
