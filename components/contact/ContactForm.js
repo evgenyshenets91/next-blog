@@ -9,23 +9,27 @@ export default function ContactForm() {
   const sendMessageHandler = async event => {
     event.preventDefault();
 
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        name,
-        message,
-      }),
-      headers: { 'Content-Type': 'application/json' },
-    });
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          name,
+          message,
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    alert(data?.message);
+      alert(data?.message);
 
-    setMessage('');
-    setName('');
-    setEmail('');
+      setMessage('');
+      setName('');
+      setEmail('');
+    } catch (e) {
+      alert(JSON.stringify(e));
+    }
   };
 
   return (
