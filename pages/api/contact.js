@@ -22,23 +22,26 @@ export default async function handler(req, res) {
       message,
     };
 
-    let client;
+    // let client;
 
     const connectionString = `mongodb+srv://${process.env.NEXT_PUBLIC_mongodb_username}:${process.env.NEXT_PUBLIC_mongodb_password}@${process.env.NEXT_PUBLIC_mongodb_clustername}.r5s0bwx.mongodb.net/${process.env.NEXT_PUBLIC_mongodb_database}?retryWrites=true&w=majority`;
 
-    try {
-      return res.status(201).json({ message: connectionString });
-      // client = await MongoClient.connect(connectionString);
-      // return res.status(201).json({ message: connectionString });
-    } catch (e) {
-      res.status(500).json({ message: 'Could not connect to DB' });
-      return;
-    }
+    const client = await MongoClient.connect(connectionString);
 
-    const db = client.db();
+    // try {
+    //   // return res.status(201).json({ message: connectionString });
+    //   await MongoClient.connect(connectionString);
+    // } catch (e) {
+    //   res.status(500).json({ message: 'Could not connect to DB' });
+    //   return;
+    // }
 
     try {
-      const result = await db.collection('messages').insertOne(newMessage);
+      const result = await client
+        .db()
+        .collection('messages')
+        .insertOne(newMessage);
+
       newMessage.id = result.insertedId;
     } catch (e) {
       await client.close();
