@@ -15,18 +15,13 @@ const nextConfig = phase => {
 
   return {
     reactStrictMode: true,
+    env: {
+      mongodb_username: 'dbUser',
+      mongodb_password: 'EDQV5MHGEQUjbRZW',
+      mongodb_clustername: 'cluster0',
+      mongodb_database: 'contact-form',
+    },
   };
-  // hide prod for testing
-
-  // return {
-  //   reactStrictMode: true,
-  //   env: {
-  //     mongodb_username: 'dbUser',
-  //     mongodb_password: 'EDQV5MHGEQUjbRZW',
-  //     mongodb_clustername: 'cluster0',
-  //     mongodb_database: 'contact-form',
-  //   },
-  // };
 };
 
 module.exports = nextConfig;

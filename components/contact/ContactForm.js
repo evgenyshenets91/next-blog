@@ -33,7 +33,7 @@ export default function ContactForm() {
   return (
     <section className={classes.contact}>
       <h1>How can I help you?</h1>
-      <p>{connectionString}</p>
+      <p>dbName:{process.env.NEXT_PUBLIC_mongodb_username}</p>
       <form className={classes.form} onSubmit={sendMessageHandler}>
         <div className={classes.controls}>
           <div className={classes.control}>
