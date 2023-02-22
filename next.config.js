@@ -12,6 +12,10 @@ const nextConfig = phase => {
       },
     };
   }
+
+  return {
+    reactStrictMode: true,
+  };
   // hide prod for testing
 
   // return {
