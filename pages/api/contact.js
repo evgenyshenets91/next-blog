@@ -22,36 +22,30 @@ export default async function handler(req, res) {
       message,
     };
 
-    // let client;
+    let client;
 
     const connectionString = `mongodb+srv://${process.env.NEXT_PUBLIC_mongodb_username}:${process.env.NEXT_PUBLIC_mongodb_password}@${process.env.NEXT_PUBLIC_mongodb_clustername}.r5s0bwx.mongodb.net/${process.env.NEXT_PUBLIC_mongodb_database}?retryWrites=true&w=majority`;
 
-    // try {
-    //   // return res.status(201).json({ message: connectionString });
-    //   await MongoClient.connect(connectionString);
-    // } catch (e) {
-    //   res.status(500).json({ message: 'Could not connect to DB' });
-    //   return;
-    // }
+    try {
+      client = await MongoClient.connect(connectionString);
+    } catch (e) {
+      res.status(500).json({ message: 'Could not connect to DB' });
+      return;
+    }
 
     try {
-      const client = await MongoClient.connect(connectionString).catch(e => {
-        res.status(500).json({ message: e });
-      });
-
       const result = await client
         .db()
         .collection('messages')
         .insertOne(newMessage);
-
       newMessage.id = result.insertedId;
     } catch (e) {
-      // await client.close();
+      await client.close();
       res.status(500).json({ message: 'Storing message Failed' });
       return;
     }
-    // await client.close();
-    //
+    await client.close();
+
     res.status(201).json({ message: 'Success' });
   }
 }
