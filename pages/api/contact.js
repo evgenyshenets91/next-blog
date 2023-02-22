@@ -35,7 +35,9 @@ export default async function handler(req, res) {
     // }
 
     try {
-      const client = await MongoClient.connect(connectionString);
+      const client = await MongoClient.connect(connectionString).catch(e => {
+        res.status(500).json({ message: e });
+      });
 
       const result = await client
         .db()
